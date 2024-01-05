@@ -1,4 +1,4 @@
-
+[![Build status](https://ci.appveyor.com/api/projects/status/yn6852l3itg5ncdb?svg=true)](https://ci.appveyor.com/project/Dmitriy199708/unit-pattern)
 
 # Домашнее задание к занятию «2.3. Patterns»
 
