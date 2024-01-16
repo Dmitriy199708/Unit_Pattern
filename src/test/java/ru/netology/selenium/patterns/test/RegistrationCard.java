@@ -1,10 +1,19 @@
 package ru.netology.selenium.patterns.test;
+import com.codeborne.selenide.Configuration;
+import io.qameta.allure.selenide.AllureSelenide;
+import ru.netology.selenium.patterns.User.User;
 import com.codeborne.selenide.Condition;
+
+import com.codeborne.selenide.logevents.SelenideLogger;
+
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-import ru.netology.selenium.patterns.User.User;
-import ru.netology.selenium.patterns.data.DataGenerator;
+
+
 
 import java.time.Duration;
 import static com.codeborne.selenide.Condition.*;
@@ -17,8 +26,17 @@ import static ru.netology.selenium.patterns.data.DataGenerator.Registration.gene
 
 public class RegistrationCard {
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
     @BeforeEach
     void SetUp() {
+        Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
     }
@@ -115,5 +133,7 @@ public class RegistrationCard {
         $("[data-test-id='agreement'].input_invalid .checkbox__text")
                 .shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
     }
+
+
 }
 
